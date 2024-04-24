@@ -1,5 +1,6 @@
 package gestionpaiement.example.gestionpaiement.service;
 
+import gestionpaiement.example.gestionpaiement.model.Article;
 import gestionpaiement.example.gestionpaiement.model.Panier;
 import gestionpaiement.example.gestionpaiement.repository.PanierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,28 +14,6 @@ import java.util.Optional;
 public class PanierServiceImpl implements PanierService {
     @Autowired
     private PanierRepository panierRepository;
-  /*  @Override
-    public void addArticleToCart(Article article) {
-        // Récupérer le panier en fonction de l'ID
-            // Si le panier n'existe pas, créez un nouveau panier
-            panier = new Panier();
-            panierRepository.save(panier);
-
-        // Créer une nouvelle ligne de panier pour l'article
-        Lignepanier lignepanier = new Lignepanier();
-        lignepanier.setArticle((List<Article>) article); // Définir l'article pour la ligne de panier
-        lignepanier.setQuantitecde(1); // Définir la quantité initiale à 1
-
-        // Sauvegarder d'abord la ligne de panier
-        lignepanierRepository.save(lignepanier);
-
-        // Affecter la ligne de panier au panier
-        panier.setLignepanier(lignepanier);// Assurez-vous que cette méthode existe dans votre entité Panier
-
-        // Mettre à jour le panier dans la base de données
-        panierRepository.save(panier);
-    }*/
-
     @Override
     public Panier save(Panier panier) {
         return panierRepository.save(panier);
@@ -56,7 +35,7 @@ public class PanierServiceImpl implements PanierService {
         Optional<Panier> existingPanierOptional = panierRepository.findById(id);
         if (existingPanierOptional.isPresent()) {
             Panier existingPanier = existingPanierOptional.get();
-            existingPanier.setDate(panier.getDate());
+           // existingPanier.setDate(panier.getDate());
             existingPanier.setPaiements(panier.getPaiements());
             // Appeler la méthode pour calculer le montant total
             double montantTotal = calculerMontantTotal(Collections.singletonList(existingPanier));
@@ -88,5 +67,9 @@ public class PanierServiceImpl implements PanierService {
             montantTotal += panier.getTotalP();
         }
         return montantTotal;
+    }
+    @Override
+    public List<Panier> getPanierAvecIdPartenaire(Long partenId) {
+        return panierRepository.findByParten_Id(partenId);
     }
 }

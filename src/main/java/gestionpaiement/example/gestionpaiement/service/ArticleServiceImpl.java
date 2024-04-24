@@ -38,7 +38,7 @@ public class ArticleServiceImpl implements ArticleService {
         if (optionalArticle.isPresent()) {
             return optionalArticle.get();
         } else {
-            // Gérer le cas où l'article n'existe pas
+            //  l'article n'existe pas
             throw new NotFoundException("Article not found with ID: " + articleId);
         }
     }
@@ -58,7 +58,7 @@ public class ArticleServiceImpl implements ArticleService {
             // Ajoutez d'autres attributs que vous souhaitez mettre à jour
             return articleRepository.save(existingArticle);
         } else {
-            return null; // Ou lancez une exception indiquant que l'article n'a pas été trouvé
+            return null; //  l'article n'a pas été trouvé
         }
     }
 
@@ -67,24 +67,4 @@ public class ArticleServiceImpl implements ArticleService {
 
         articleRepository.deleteById(id);
     }
-
-
-    // Méthode pour ajouter un article au panier
-    /*public Lignepanier ajouterArticleAuPanier(Long articleId, int  quantitecde) {
-        // Rechercher l'article par son ID
-        Optional<Article> articleOptional = articleRepository.findById(articleId);
-        if (articleOptional.isPresent()) {
-            Article article = articleOptional.get();
-
-            // Créer une nouvelle ligne de panier avec l'article et la quantité spécifiés
-            Lignepanier lignePanier = new Lignepanier();
-            lignePanier.setArticle(article);
-            lignePanier.setQuantitecde(quantitecde);
-
-            // Enregistrer la nouvelle ligne de panier
-            return lignepanierRepository.save(lignePanier);
-        } else {
-            throw new NotFoundException("Article non trouvé avec l'ID : " + articleId);
-        }
-    }*/
 }

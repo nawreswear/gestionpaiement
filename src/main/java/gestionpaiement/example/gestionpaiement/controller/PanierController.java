@@ -2,6 +2,9 @@ package gestionpaiement.example.gestionpaiement.controller;
 
 import gestionpaiement.example.gestionpaiement.model.Article;
 import gestionpaiement.example.gestionpaiement.model.Panier;
+import gestionpaiement.example.gestionpaiement.model.Part_En;
+import gestionpaiement.example.gestionpaiement.repository.ArticleRepository;
+import gestionpaiement.example.gestionpaiement.repository.PanierRepository;
 import gestionpaiement.example.gestionpaiement.service.PanierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,16 +19,46 @@ public class PanierController {
 
     @Autowired
     private PanierService panierService;
+    @Autowired
+    private PanierRepository panierRepository;
 
-  /*  @PostMapping("/addToCart")
-    public ResponseEntity<String> addToCart(@RequestBody Article article, @RequestParam(required = false) Long panierId) {
-        panierService.addArticleToCart(article, panierId);
-        return ResponseEntity.ok("Article ajouté au panier avec succès");
-    }*/
+    @Autowired
+    private ArticleRepository articleRepository;
+
+    @GetMapping("/{partenId}")
+    public ResponseEntity<List<Panier>> getPaniersByPartenaire(@PathVariable Long partenId) {
+        List<Panier> paniers = panierRepository.findByParten_Id(partenId);
+
+        for (Panier panier : paniers) {
+            List<Article> articles = articleRepository.findByPaniersId(panier.getId());
+            panier.setArticles(articles);
+        }
+        return ResponseEntity.ok().body(paniers);
+    }
+    @PostMapping("/addPanier/{partenId}")
+    public ResponseEntity<Long> createPanier(@PathVariable Long partenId) {
+        Panier panier = new Panier();
+        // Vous pouvez ajouter d'autres initialisations pour le panier si nécessaire
+        panier.setPartenId(partenId); // Supposons que vous avez une méthode setPartenId() pour définir l'ID du partenaire dans votre modèle Panier
+        panierService.save(panier); // Supposons que vous avez une méthode save() dans votre service pour enregistrer le panier
+        return new ResponseEntity<>(panier.getId(), HttpStatus.OK);
+    }
+    @GetMapping("/partenaire/{partenId}")
+    public ResponseEntity<List<Panier>> getPanierAvecIdPartenaire(@PathVariable Long partenId) {
+        List<Panier> paniers = panierRepository.findByParten_Id(partenId);
+
+        for (Panier panier : paniers) {
+            List<Article> articles = articleRepository.findByPaniersId(panier.getId());
+            panier.setArticles(articles);
+        }
+        return ResponseEntity.ok().body(paniers);
+    }
     @PostMapping("/addPanier")
-    public Panier addPanier(@RequestBody Panier panier) {
-
-        return panierService.save(panier);
+    public ResponseEntity<Long> createPanier() {
+        Panier panier = new Panier();
+        // Vous pouvez ajouter d'autres initialisations pour le panier si nécessaire
+        panierService.save(panier); // Supposons que vous avez une méthode save() dans votre service pour enregistrer le panier
+        return new ResponseEntity<>(panier.getId(), HttpStatus.OK);
     }
 
     @GetMapping("/getAllPaniers")

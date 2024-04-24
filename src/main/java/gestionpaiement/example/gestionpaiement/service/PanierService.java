@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PanierService {
-   // void addArticleToCart(Article article);
     Panier save(Panier panier);
 
     String deletePanier(long id);
@@ -28,4 +27,5 @@ public interface PanierService {
     // List<Panier> getPaniesrByArticle(Article article);
 
     //double getTotalQuantiteByArticle(Article article);
+    List<Panier> getPanierAvecIdPartenaire(Long partenId);
 }

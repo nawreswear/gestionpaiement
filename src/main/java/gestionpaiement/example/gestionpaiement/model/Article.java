@@ -28,6 +28,7 @@ public class Article {
     private String statut;
     private double prixvente;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "articles", cascade = CascadeType.ALL)
     private List<Panier> paniers = new ArrayList<>();
 
