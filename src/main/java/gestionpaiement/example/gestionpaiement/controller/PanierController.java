@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/panier")
 public class PanierController {
 
@@ -38,9 +39,8 @@ public class PanierController {
     @PostMapping("/addPanier/{partenId}")
     public ResponseEntity<Long> createPanier(@PathVariable Long partenId) {
         Panier panier = new Panier();
-        // Vous pouvez ajouter d'autres initialisations pour le panier si nécessaire
-        panier.setPartenId(partenId); // Supposons que vous avez une méthode setPartenId() pour définir l'ID du partenaire dans votre modèle Panier
-        panierService.save(panier); // Supposons que vous avez une méthode save() dans votre service pour enregistrer le panier
+        panier.setPartenId(partenId);
+        panierService.save(panier);
         return new ResponseEntity<>(panier.getId(), HttpStatus.OK);
     }
     @GetMapping("/partenaire/{partenId}")

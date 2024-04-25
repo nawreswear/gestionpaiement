@@ -22,40 +22,44 @@ public class ArticleController {
     @Autowired
     private PanierService panierService;
 
-   @PostMapping("{articleId}/{panierId}/{partenId}/ajouter-article")
-   @Transactional
-   public ResponseEntity<Panier> ajouterArticleAuPanier(@PathVariable Long panierId, @PathVariable Long articleId, @PathVariable Long partenId) {
-       // Récupérer le panier
-       Panier panier = panierService.getPanierById(panierId);
-       // Vérifier si le panier existe
-       if (panier != null) {
-           // Récupérer l'article
-           Article article = articleService.getArticleById(articleId);
-           // Vérifier si l'article existe
-           if (article != null) {
-               // Ajouter l'article au panier
-               panier.addArticle(article);
-               // Augmenter la quantité commandée
-               panier.setQuantitecde(panier.getQuantitecde() + 1); // Mettre à jour la quantité
-               // Mettre à jour le partenId dans le panier
-               panier.setPartenId(partenId);
-               // Calculer le total
-               double total = panier.getQuantitecde() * article.getPrix();
-               panier.setTotalP(total); // Mettre à jour le total
-               panierService.save(panier);
-               // Initialiser la collection paniers dans l'article
-               article.getPaniers().size();
-               return ResponseEntity.ok(panier);
-           } else {
-               // si l'article n'existe pas
-               return ResponseEntity.notFound().build();
-           }
-       } else {
-           // si le panier n'existe pas
-           return ResponseEntity.notFound().build();
-       }
-   }
-   @DeleteMapping("/{panierId}/supprimer-article/{articleId}")
+    @PostMapping("{articleId}/{panierId}/{partenId}/ajouter-article")
+    @Transactional
+    public ResponseEntity<?> ajouterArticleAuPanier(@PathVariable Long panierId, @PathVariable Long articleId, @PathVariable Long partenId) {
+        // Récupérer le panier
+        Panier panier = panierService.getPanierById(panierId);
+        // Vérifier si le panier existe
+        if (panier != null) {
+            // Récupérer l'article
+            Article article = articleService.getArticleById(articleId);
+            // Vérifier si l'article existe
+            if (article != null) {
+                // Vérifier si la quantité dans le panier ne dépasse pas la quantité en stock dans l'article
+                if (panier.getQuantitecde() < article.getQuantiter()) {
+                    // Ajouter l'article au panier
+                    panier.addArticle(article);
+                    // Augmenter la quantité commandée
+                    panier.setQuantitecde(panier.getQuantitecde() + 1); // Mettre à jour la quantité
+                    // Mettre à jour le partenId dans le panier
+                    panier.setPartenId(partenId);
+                    panier.setTotalP(article.getPrixvente() * panier.getQuantitecde()); // Mettre à jour le total
+                    panierService.save(panier);
+                    // Initialiser la collection paniers dans l'article
+                    article.getPaniers().size();
+                    return ResponseEntity.ok(panier);
+                } else {
+                    // si la quantité dans le panier dépasse la quantité en stock dans l'article
+                    return ResponseEntity.badRequest().body("La quantité dans le panier dépasse la quantité disponible dans l'article.");
+                }
+            } else {
+                // si l'article n'existe pas
+                return ResponseEntity.notFound().build();
+            }
+        } else {
+            // si le panier n'existe pas
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @DeleteMapping("/{panierId}/supprimer-article/{articleId}")
     @Transactional
     public ResponseEntity<Panier> supprimerArticleDuPanier(@PathVariable Long panierId, @PathVariable Long articleId) {
         // Récupérer le panier

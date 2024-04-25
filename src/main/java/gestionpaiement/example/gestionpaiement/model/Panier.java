@@ -23,9 +23,8 @@ public class Panier {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Double TotalP ;
+    private Double totalP =0.0;
 
-    //private Date date;
 
     private int quantitecde ;
 
@@ -37,8 +36,8 @@ public class Panier {
     @OneToOne
     private Part_En parten;
 
-    @JsonIgnoreProperties
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("articles")
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "panier_article", joinColumns = @JoinColumn(name = "panier_id"),inverseJoinColumns = @JoinColumn(name = "article_id"))
     private List<Article> articles = new ArrayList<>();
 
@@ -46,7 +45,9 @@ public class Panier {
         articles.add(article);
         article.getPaniers().add(this);
     }
-
+    public Double getTotalP() {
+        return totalP != null ? totalP : 0.0;
+    }
 
     // Méthode pour supprimer un article du panier
     public void removeArticle(Article article) {

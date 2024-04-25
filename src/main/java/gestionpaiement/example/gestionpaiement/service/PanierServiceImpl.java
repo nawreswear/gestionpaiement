@@ -38,8 +38,9 @@ public class PanierServiceImpl implements PanierService {
            // existingPanier.setDate(panier.getDate());
             existingPanier.setPaiements(panier.getPaiements());
             // Appeler la méthode pour calculer le montant total
-            double montantTotal = calculerMontantTotal(Collections.singletonList(existingPanier));
-            existingPanier.setTotalP(montantTotal);
+           // double montantTotal = calculerMontantTotal(Collections.singletonList(existingPanier));
+            existingPanier.setTotalP(panier.getTotalP());
+            existingPanier.setQuantitecde(panier.getQuantitecde());
             return panierRepository.save(existingPanier);
         } else {
             return null;
