@@ -68,5 +68,18 @@ public class Panier {
         }
         parten.setId(partenId);
     }
-
+    // Méthode pour rechercher un article dans le panier_article pour un ID de panier spécifique
+    public boolean containsArticle(Long panierId, Long articleId) {
+        // Parcourir la liste des articles dans le panier
+        for (Article article : articles) {
+            // Vérifier si l'ID de l'article correspond à celui recherché
+            if (article.getId().equals(articleId)) {
+                // Vérifier si l'ID du panier associé à l'article correspond à celui recherché
+                if (article.getPaniers().contains(panierId)) {
+                    return true; // L'article est trouvé dans le panier avec l'ID spécifié
+                }
+            }
+        }
+        return false; // L'article n'est pas trouvé dans le panier avec l'ID spécifié
+    }
 }

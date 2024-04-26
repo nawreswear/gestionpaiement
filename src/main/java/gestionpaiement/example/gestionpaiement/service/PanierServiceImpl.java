@@ -6,6 +6,7 @@ import gestionpaiement.example.gestionpaiement.repository.PanierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -34,19 +35,27 @@ public class PanierServiceImpl implements PanierService {
     public Panier updatePanier(Long id, Panier panier) {
         Optional<Panier> existingPanierOptional = panierRepository.findById(id);
         if (existingPanierOptional.isPresent()) {
-            Panier existingPanier = existingPanierOptional.get();
-           // existingPanier.setDate(panier.getDate());
-            existingPanier.setPaiements(panier.getPaiements());
-            // Appeler la méthode pour calculer le montant total
-           // double montantTotal = calculerMontantTotal(Collections.singletonList(existingPanier));
-            existingPanier.setTotalP(panier.getTotalP());
+                  Panier existingPanier = existingPanierOptional.get();
+                  existingPanier.setPaiements(panier.getPaiements());
+                   existingPanier.setTotalP(panier.getTotalP());
             existingPanier.setQuantitecde(panier.getQuantitecde());
             return panierRepository.save(existingPanier);
         } else {
             return null;
         }
     }
-@Override
+    @Override
+    @Transactional
+    public boolean containsArticle(Long panierId, Long articleId) {
+        // Obtenir le panier spécifique à partir de son ID
+        Panier panier = panierRepository.findById(panierId).orElse(null);
+        if (panier != null) {
+            // Appeler la méthode containsArticle sur le panier obtenu
+            return panier.containsArticle(panierId, articleId);
+        }
+        return false;
+    }
+    @Override
     public Panier getPanierById(Long panierId) {
         // Utiliser la méthode findById du repository pour récupérer le panier par son ID
         return panierRepository.findById(panierId).orElse(null);

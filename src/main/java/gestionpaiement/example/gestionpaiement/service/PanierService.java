@@ -19,10 +19,10 @@ public interface PanierService {
 
     Optional<Panier> findById(long id);
 
- Panier getPanierById(Long panierId);
+     Panier getPanierById(Long panierId);
 
- // Méthode pour calculer le montant total
     double calculerMontantTotal(List<Panier> paniers);
+    boolean containsArticle(Long panierId, Long articleId);
 
     // List<Panier> getPaniesrByArticle(Article article);
 

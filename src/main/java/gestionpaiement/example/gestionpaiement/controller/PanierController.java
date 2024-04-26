@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -35,6 +36,12 @@ public class PanierController {
             panier.setArticles(articles);
         }
         return ResponseEntity.ok().body(paniers);
+    }
+    @GetMapping("/containsArticle/{panierId}/{articleId}")
+    @Transactional
+    public ResponseEntity<Boolean> containsArticle(@PathVariable Long panierId, @PathVariable Long articleId) {
+        boolean articleExisteDansPanier = panierService.containsArticle(panierId, articleId);
+        return ResponseEntity.ok().body(articleExisteDansPanier);
     }
     @PostMapping("/addPanier/{partenId}")
     public ResponseEntity<Long> createPanier(@PathVariable Long partenId) {

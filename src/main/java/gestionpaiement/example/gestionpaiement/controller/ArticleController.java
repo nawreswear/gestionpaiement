@@ -34,7 +34,7 @@ public class ArticleController {
             // Vérifier si l'article existe
             if (article != null) {
                 // Vérifier si la quantité dans le panier ne dépasse pas la quantité en stock dans l'article
-                if (panier.getQuantitecde() < article.getQuantiter()) {
+                if (panier.getQuantitecde() <= article.getQuantiter()) {
                     // Ajouter l'article au panier
                     panier.addArticle(article);
                     // Augmenter la quantité commandée
