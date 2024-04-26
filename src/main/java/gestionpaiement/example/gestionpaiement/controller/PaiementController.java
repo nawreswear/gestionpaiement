@@ -1,15 +1,12 @@
 package gestionpaiement.example.gestionpaiement.controller;
-
-
 import gestionpaiement.example.gestionpaiement.model.Paiement;
 import gestionpaiement.example.gestionpaiement.service.PaiementServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/paiements")
 public class PaiementController {
 
@@ -41,15 +38,4 @@ public class PaiementController {
         return paiementService.deletePaiement(id);
     }
 
-    /*@GetMapping("/findByArticle")
-    public List<Lignepanier> findByArticle(@RequestParam Long articleId) {
-        Optional<Article> optionalArticle = articleRepository.findById(articleId);
-
-        if (optionalArticle.isPresent()) {
-            Article article = optionalArticle.get();
-            return lignepanierService.findByArticle(article);
-        } else {
-            throw new ArticleNotFoundException("L'article avec l'ID " + articleId + " n'a pas été trouvé.");
-        }
-    }*/
 }
