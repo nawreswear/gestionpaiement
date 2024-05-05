@@ -2,7 +2,6 @@ package gestionpaiement.example.gestionpaiement.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,7 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CharacterEncodingFilter;
 
 import java.util.Arrays;
 
@@ -24,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/articles/**")
+                .antMatchers("/articles/**","/articles/{articleId}/{panierId}/ajouterarticle/**","/panier/**","/panier/containsArticle/{panierId}/{articleId}/**","/paiements/**")
                 .permitAll()
                 .and()
                 .csrf().disable();
@@ -49,13 +47,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new ObjectMapper().configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
     }
 
-    /*@Bean
-    public FilterRegistrationBean<CharacterEncodingFilter> characterEncodingFilter() {
-        FilterRegistrationBean<CharacterEncodingFilter> filter = new FilterRegistrationBean<>();
-        filter.setFilter(new CharacterEncodingFilter());
-        filter.addInitParameter("encoding", "UTF-8");
-        filter.addInitParameter("forceEncoding", "true");
-        filter.addUrlPatterns("/*");
-        return filter;
-    }*/
 }

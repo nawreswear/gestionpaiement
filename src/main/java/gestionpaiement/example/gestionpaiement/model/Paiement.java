@@ -1,13 +1,9 @@
 package gestionpaiement.example.gestionpaiement.model;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.util.Date;
-import java.util.List;
 import javax.persistence.*;
 
 
@@ -30,5 +26,7 @@ public class Paiement {
     @JoinColumn(name = "panier_id")
     private Panier panier;
 
-
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
 }

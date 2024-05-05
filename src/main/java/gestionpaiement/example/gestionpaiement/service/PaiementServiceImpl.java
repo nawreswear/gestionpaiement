@@ -1,9 +1,11 @@
 package gestionpaiement.example.gestionpaiement.service;
 
 import gestionpaiement.example.gestionpaiement.model.Paiement;
+import gestionpaiement.example.gestionpaiement.model.Panier;
 import gestionpaiement.example.gestionpaiement.repository.PaiementRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +34,7 @@ public class PaiementServiceImpl {
         paiementRepository.deleteById(id);
         return "Paiement supprimé avec succès !";
     }
+
 
     public Paiement updatePaiement(Paiement paiement, long id) {
         // Vérifier si le paiement avec l'ID spécifié existe dans la base de données
