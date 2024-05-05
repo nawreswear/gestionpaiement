@@ -15,9 +15,14 @@ public interface PanierRepository extends JpaRepository<Panier,Long> {
    //  List<Panier> findByPartenId(Long partenId);
    List<Panier> findByParten_Id(Long partenId);
 <<<<<<< HEAD
+<<<<<<< HEAD
    // Supprimer les entrées de la table article_panier par l'ID du panier
    void deleteById(Long id);
 
 =======
 >>>>>>> a2320ffb2e017f1e0b79c2c0685237b518442982
+=======
+   // Supprimer les entrées de la table article_panier par l'ID du panier
+   void deleteById(Long id);
+>>>>>>> e12daffcb4c3638f7c42dab513cbf9c7131a9573
 }

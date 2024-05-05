@@ -69,14 +69,19 @@ public class Panier {
     }
     // Méthode pour rechercher un article dans le panier_article pour un ID de panier spécifique
 <<<<<<< HEAD
+<<<<<<< HEAD
     public boolean containsArticle(Long articleId) {
 =======
     public boolean containsArticle(Long panierId, Long articleId) {
 >>>>>>> a2320ffb2e017f1e0b79c2c0685237b518442982
+=======
+    public boolean containsArticle(Long articleId) {
+>>>>>>> e12daffcb4c3638f7c42dab513cbf9c7131a9573
         // Parcourir la liste des articles dans le panier
         for (Article article : articles) {
             // Vérifier si l'ID de l'article correspond à celui recherché
             if (article.getId().equals(articleId)) {
+<<<<<<< HEAD
 <<<<<<< HEAD
                 return true; // L'article est trouvé dans le panier avec l'ID spécifié
 =======
@@ -85,13 +90,21 @@ public class Panier {
                     return true; // L'article est trouvé dans le panier avec l'ID spécifié
                 }
 >>>>>>> a2320ffb2e017f1e0b79c2c0685237b518442982
+=======
+                return true; // L'article est trouvé dans le panier avec l'ID spécifié
+>>>>>>> e12daffcb4c3638f7c42dab513cbf9c7131a9573
             }
         }
         return false; // L'article n'est pas trouvé dans le panier avec l'ID spécifié
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 =======
 >>>>>>> a2320ffb2e017f1e0b79c2c0685237b518442982
+=======
+
+
+>>>>>>> e12daffcb4c3638f7c42dab513cbf9c7131a9573
 }

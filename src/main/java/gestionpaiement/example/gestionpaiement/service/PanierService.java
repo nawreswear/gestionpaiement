@@ -22,13 +22,19 @@ public interface PanierService {
 
      Panier getPanierById(Long panierId);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e12daffcb4c3638f7c42dab513cbf9c7131a9573
 
     @Transactional
     void viderArticlesDuPanier(Long panierId);
 
     void delete(Panier panier);
+<<<<<<< HEAD
 =======
 >>>>>>> a2320ffb2e017f1e0b79c2c0685237b518442982
+=======
+>>>>>>> e12daffcb4c3638f7c42dab513cbf9c7131a9573
 
     double calculerMontantTotal(List<Panier> paniers);
     boolean containsArticle(Long panierId, Long articleId);

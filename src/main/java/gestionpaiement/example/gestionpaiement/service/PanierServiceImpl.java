@@ -8,9 +8,12 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import java.util.Collections;
 >>>>>>> a2320ffb2e017f1e0b79c2c0685237b518442982
+=======
+>>>>>>> e12daffcb4c3638f7c42dab513cbf9c7131a9573
 import java.util.List;
 import java.util.Optional;
 
@@ -55,10 +58,14 @@ public class PanierServiceImpl implements PanierService {
         if (panier != null) {
             // Appeler la méthode containsArticle sur le panier obtenu
 <<<<<<< HEAD
+<<<<<<< HEAD
             return panier.containsArticle(panierId);
 =======
             return panier.containsArticle(panierId, articleId);
 >>>>>>> a2320ffb2e017f1e0b79c2c0685237b518442982
+=======
+            return panier.containsArticle(panierId);
+>>>>>>> e12daffcb4c3638f7c42dab513cbf9c7131a9573
         }
         return false;
     }
