@@ -61,7 +61,7 @@ public class User {
     private double longitude;
     private double latitude;
 
-
+     @JsonIgnoreProperties
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "parten_id")
     private Part_En parten ;

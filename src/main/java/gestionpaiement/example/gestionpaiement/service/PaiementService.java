@@ -1,6 +1,7 @@
 package gestionpaiement.example.gestionpaiement.service;
 
 import gestionpaiement.example.gestionpaiement.model.Paiement;
+import gestionpaiement.example.gestionpaiement.model.Panier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,6 @@ public interface PaiementService {
     List<Paiement> getPaiementsByNomUtilisateur(String nomUtilisateur);
     double calculerMontant(int quantite, double prixInitial);
     Paiement updatePaiement(Paiement paiement, long id);
-
+    List<Paiement> findByPanier(Panier panier);
     List<Paiement> findByNomUtilisateur(String nomUser);
 }

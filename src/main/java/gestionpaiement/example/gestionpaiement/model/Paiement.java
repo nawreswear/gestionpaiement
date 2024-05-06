@@ -30,5 +30,7 @@ public class Paiement {
     @JoinColumn(name = "panier_id")
     private Panier panier;
 
-
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
 }
