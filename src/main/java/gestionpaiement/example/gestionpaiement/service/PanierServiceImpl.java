@@ -1,11 +1,16 @@
 package gestionpaiement.example.gestionpaiement.service;
 
+import gestionpaiement.example.gestionpaiement.model.Article;
 import gestionpaiement.example.gestionpaiement.model.Panier;
 import gestionpaiement.example.gestionpaiement.repository.PanierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+<<<<<<< HEAD
+=======
+import java.util.Collections;
+>>>>>>> a2320ffb2e017f1e0b79c2c0685237b518442982
 import java.util.List;
 import java.util.Optional;
 
@@ -49,7 +54,11 @@ public class PanierServiceImpl implements PanierService {
         Panier panier = panierRepository.findById(panierId).orElse(null);
         if (panier != null) {
             // Appeler la méthode containsArticle sur le panier obtenu
+<<<<<<< HEAD
             return panier.containsArticle(panierId);
+=======
+            return panier.containsArticle(panierId, articleId);
+>>>>>>> a2320ffb2e017f1e0b79c2c0685237b518442982
         }
         return false;
     }

@@ -7,8 +7,11 @@ import gestionpaiement.example.gestionpaiement.service.PanierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+<<<<<<< HEAD
 
 import java.util.Date;
+=======
+>>>>>>> a2320ffb2e017f1e0b79c2c0685237b518442982
 import java.util.List;
 
 @RestController

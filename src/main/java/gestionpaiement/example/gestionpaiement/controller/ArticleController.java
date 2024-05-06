@@ -3,15 +3,19 @@ import gestionpaiement.example.gestionpaiement.model.Article;
 import gestionpaiement.example.gestionpaiement.model.Paiement;
 import gestionpaiement.example.gestionpaiement.model.Panier;
 import gestionpaiement.example.gestionpaiement.model.Part_En;
+<<<<<<< HEAD
 import gestionpaiement.example.gestionpaiement.service.*;
+=======
+import gestionpaiement.example.gestionpaiement.service.ArticleService;
+import gestionpaiement.example.gestionpaiement.service.PanierService;
+import gestionpaiement.example.gestionpaiement.service.Part_EnService;
+>>>>>>> a2320ffb2e017f1e0b79c2c0685237b518442982
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
-
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/articles")
@@ -24,9 +28,14 @@ public class ArticleController {
     @Autowired
     private Part_EnService PartenService;
     @Autowired
+    private Part_EnService PartenService;
+    @Autowired
     private PanierService panierService;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> a2320ffb2e017f1e0b79c2c0685237b518442982
     @PostMapping("{articleId}/{panierId}/{partenId}/ajouter-article")
     @Transactional
     public ResponseEntity<?> ajouterArticleAuPanier(@PathVariable Long panierId, @PathVariable Long articleId, @PathVariable Long partenId) {
@@ -38,33 +47,58 @@ public class ArticleController {
             Article article = articleService.getArticleById(articleId);
             // Vérifier si l'article existe
             if (article != null) {
+<<<<<<< HEAD
                 // la quantité dans le panier ne dépasse pas la quantité en stock dans l'article
                // if (panier.getQuantitecde() <= article.getQuantiter()) {
+=======
+                // Vérifier si la quantité dans le panier ne dépasse pas la quantité en stock dans l'article
+                if (panier.getQuantitecde() <= article.getQuantiter()) {
+>>>>>>> a2320ffb2e017f1e0b79c2c0685237b518442982
                     // Ajouter l'article au panier
                     panier.addArticle(article);
                     // Augmenter la quantité commandée
                     panier.setQuantitecde(panier.getQuantitecde() + 1); // Mettre à jour la quantité
                     // Mettre à jour le partenId dans le panier
                     panier.setPartenId(partenId);
+<<<<<<< HEAD
                     panier.setTotalP(article.getPrixvente() + panier.getTotalP()); // Mettre à jour le total
+=======
+                    panier.setTotalP(article.getPrixvente() * panier.getQuantitecde()); // Mettre à jour le total
+>>>>>>> a2320ffb2e017f1e0b79c2c0685237b518442982
                     panierService.save(panier);
                     // Initialiser la collection paniers dans l'article
                     article.getPaniers().size();
                     return ResponseEntity.ok(panier);
                 } else {
+<<<<<<< HEAD
                     // la quantité dans le panier dépasse la quantité en stock dans l'article
                     return ResponseEntity.badRequest().body("La quantité dans le panier dépasse la quantité disponible dans l'article.");
                 }
           /*  } else {
                 //  l'article n'existe pas
+=======
+                    // si la quantité dans le panier dépasse la quantité en stock dans l'article
+                    return ResponseEntity.badRequest().body("La quantité dans le panier dépasse la quantité disponible dans l'article.");
+                }
+            } else {
+                // si l'article n'existe pas
+>>>>>>> a2320ffb2e017f1e0b79c2c0685237b518442982
                 return ResponseEntity.notFound().build();
             }*/
         } else {
+<<<<<<< HEAD
             // le panier n'existe pas
             return ResponseEntity.notFound().build();
         }
     }
     /*@DeleteMapping("/{panierId}/supprimer-article/{articleId}")
+=======
+            // si le panier n'existe pas
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @DeleteMapping("/{panierId}/supprimer-article/{articleId}")
+>>>>>>> a2320ffb2e017f1e0b79c2c0685237b518442982
     @Transactional
     public ResponseEntity<Panier> supprimerArticleDuPanier(@PathVariable Long panierId, @PathVariable Long articleId) {
         // Récupérer le panier
@@ -82,6 +116,7 @@ public class ArticleController {
             return ResponseEntity.ok(panier);
         } else {
             // si le panier ou l'article n'existe pas
+<<<<<<< HEAD
             return ResponseEntity.notFound().build();
         }
     }*/
@@ -122,6 +157,8 @@ public class ArticleController {
             }
         } else {
             // Si le panier ou l'article n'existe pas
+=======
+>>>>>>> a2320ffb2e017f1e0b79c2c0685237b518442982
             return ResponseEntity.notFound().build();
         }
     }
@@ -132,6 +169,7 @@ public class ArticleController {
         return new ResponseEntity<>(createdArticle, HttpStatus.CREATED);
     }
 
+<<<<<<< HEAD
     @DeleteMapping("/panier/{id}")
     public ResponseEntity<String> viderPanier(@PathVariable Long id) {
         try {
@@ -157,6 +195,8 @@ public class ArticleController {
     }
 
 
+=======
+>>>>>>> a2320ffb2e017f1e0b79c2c0685237b518442982
     //  récupérer tous les articles
     @GetMapping
     public ResponseEntity<List<Article>> getAllArticles() {
