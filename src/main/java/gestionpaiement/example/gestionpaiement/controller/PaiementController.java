@@ -8,10 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 72aabd6a3e2c894c0d151a5549459112acf4f4ef
 
 import java.util.Date;
 =======
 >>>>>>> a2320ffb2e017f1e0b79c2c0685237b518442982
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> e12daffcb4c3638f7c42dab513cbf9c7131a9573
+>>>>>>> 72aabd6a3e2c894c0d151a5549459112acf4f4ef
 import java.util.List;
 
 @RestController
@@ -84,6 +93,7 @@ public class PaiementController {
         paiement.setMontant(request.getMontant());
         paiement.setStatut("en cours"); // ou un autre statut initial
         paiement.setDate(new Date());
+<<<<<<< HEAD
 
         // Ajoutez la logique pour associer le paiement à un panier
         // par exemple, en utilisant request.getPanier() pour obtenir le panier associé
@@ -118,7 +128,61 @@ public class PaiementController {
             return "Erreur lors de la suppression des articles du panier après le paiement : " + e.getMessage();
         }
     }
+=======
+>>>>>>> 72aabd6a3e2c894c0d151a5549459112acf4f4ef
 
+        // Ajoutez la logique pour associer le paiement à un panier
+        // par exemple, en utilisant request.getPanier() pour obtenir le panier associé
+
+        Paiement nouveauPaiement = paiementService.savePaiement(paiement);
+
+        return nouveauPaiement;
+    }
+    @DeleteMapping("/viderPanier/{paiementId}")
+    public String viderPanier(@PathVariable Long paiementId) {
+        try {
+            // Récupérer le paiement par son ID
+            Paiement paiement = paiementService.getPaiementById(paiementId);
+
+            // Récupérer le panier associé au paiement
+            Panier panier = paiement.getPanier();
+
+            if (panier != null) {
+                // Vider le panier en supprimant tous les articles
+                panier.getArticles().clear();
+                panier.setTotalP(0.0);
+                panier.setQuantitecde(0);
+
+                // Mettre à jour le panier dans la base de données
+                panierService.save(panier);
+
+                return "Panier vidé avec succès après le paiement";
+            } else {
+                return "Aucun panier trouvé pour le paiement avec l'ID : " + paiementId;
+            }
+        } catch (Exception e) {
+            return "Erreur lors de la suppression des articles du panier après le paiement : " + e.getMessage();
+        }
+    }
+    @PutMapping("/updatePaiementstatut/{id}")
+    public ResponseEntity<Paiement> updatePaiementstatut(@PathVariable Long id) {
+        // Récupérer le paiement par son ID
+        Paiement paiement = paiementService.getPaiementById(id);
+
+        // Vérifier si le paiement existe
+        if (paiement != null) {
+            // Mettre à jour le statut du paiement à "acceptée"
+            paiement.setStatut("acceptée");
+
+            // Enregistrer le paiement mis à jour dans la base de données
+            Paiement updatedPaiement = paiementService.savePaiement(paiement);
+
+            return ResponseEntity.ok().body(updatedPaiement);
+        } else {
+            // Si le paiement n'est pas trouvé, retourner une réponse 404 Not Found
+            return ResponseEntity.notFound().build();
+        }
+    }
     @DeleteMapping("/deletePaiement/{id}")
     public String deletePaiement(@PathVariable Long id) {
         return paiementService.deletePaiement(id);

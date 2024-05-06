@@ -1,13 +1,9 @@
 package gestionpaiement.example.gestionpaiement.model;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.util.Date;
-import java.util.List;
 import javax.persistence.*;
 
 
@@ -33,4 +29,8 @@ public class Paiement {
     public void setStatut(String statut) {
         this.statut = statut;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 72aabd6a3e2c894c0d151a5549459112acf4f4ef
